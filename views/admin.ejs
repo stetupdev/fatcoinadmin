@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FatCoin Admin Portal</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 2rem; background: #f0f0f0; }
+  table { border-collapse: collapse; width: 100%; max-width: 600px; }
+  th, td { border: 1px solid #ddd; padding: 0.5rem; text-align: left; }
+  th { background-color: #333; color: white; }
+  input[type="number"] { width: 100%; }
+  .update-btn { padding: 0.3rem 0.5rem; cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>FatCoin Admin Portal</h1>
+  <p>Admin path: <code><%= adminPath %></code></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Balance</th>
+        <th>Update Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% Object.entries(usernames).forEach(([username, balance]) => { %>
+      <tr>
+        <td><%= username %></td>
+        <td><%= balance %></td>
+        <td>
+          <form method="POST" action="<%= adminPath %>/update">
+            <input type="hidden" name="username" value="<%= username %>" />
+            <input type="number" name="balance" value="<%= balance %>" min="0" step="1" />
+            <button type="submit" class="update-btn">Update</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

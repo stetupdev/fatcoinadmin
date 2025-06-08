@@ -1,0 +1,14 @@
+{
+  "name": "fatcoinadmin",
+  "version": "1.0.0",
+  "main": "admin_server.js",
+  "scripts": {
+    "start": "node admin_server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}

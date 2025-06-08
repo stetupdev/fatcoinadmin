@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FatCoin Admin Portal</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 400px; margin: 2rem auto; }
+  label, input, button { display: block; margin: 0.5rem 0; width: 100%; }
+  input, button { padding: 0.5rem; font-size: 1rem; }
+</style>
+</head>
+<body>
+  <h1>FatCoin Admin Portal</h1>
+  <form id="addBalanceForm">
+    <label for="username">Username:</label>
+    <input id="username" name="username" required />
+    <label for="amount">Amount to Add:</label>
+    <input id="amount" name="amount" type="number" required />
+    <button type="submit">Add Balance</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById('addBalanceForm');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const username = form.username.value.trim();
+      const amount = Number(form.amount.value);
+
+      if (!username || !amount || amount <= 0) {
+        alert('Please enter valid username and amount.');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/addbalance', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, amount })
+        });
+        const data = await res.json();
+        document.getElementById('result').textContent = data.message;
+      } catch (err) {
+        document.getElementById('result').textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
